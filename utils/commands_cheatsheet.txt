@@ -7,6 +7,10 @@ docker-machine create -d openstack --openstack-flavor-name m1.small
 
 docker-machine create -d openstack --openstack-flavor-name m1.small --openstack-image-name centos-7-1511 --openstack-floatingip-pool ext-net-01 --openstack-ssh-user centos --openstack-keypair-name phil --openstack-private-key-file ~/.ssh/id_rsa --openstack-sec-groups docker-machine,default,http-https droneci
 
+# see here for more details on compose
+# https://realpython.com/blog/python/django-development-with-docker-compose-and-machine/
+docker-compose build
+docker-compose up -d
 
 # see logs
 docker logs --tail 10 <container name>
