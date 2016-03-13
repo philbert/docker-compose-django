@@ -11,7 +11,7 @@ docker-machine create -d openstack --openstack-flavor-name m1.small --openstack-
 # https://realpython.com/blog/python/django-development-with-docker-compose-and-machine/
 docker-compose build
 docker-compose up -d
-docker-compose up -d --force-rebuild
+docker-compose up -d --force-recreate
 docker-compose run webapp /usr/local/bin/python manage.py migrate
 docker-compose build webapp
 docker-compose up --no-deps -d webapp
