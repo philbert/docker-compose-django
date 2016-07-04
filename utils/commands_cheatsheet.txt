@@ -18,6 +18,10 @@ docker-compose up --no-deps -d webapp
 
 @philbert there are a few different approaches you can take. The simplest will be to mount the docker daemon into your build http://readme.drone.io/usage/build_test/#volumes:fb92aa3346185c57f15afda861d465a3 . You can then invoke docker-compose commands from your build image (assuming docker-compose is available in your build image)
 
+# create jenkins
+docker run -d -p 8080:8080 -p 50000:50000 -v /var/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins
+docker run -d -p 8080:8080 -p 50000:50000 -v /var/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock philbert_jenk
+
 # see logs
 docker logs --tail 10 <container name>
 docker logs -f <container name>
