@@ -1,43 +1,53 @@
-webapp:
-  restart: always
-  build: ./superlists
-  expose:
-    - "8000"
-  links:
-    - postgres:postgres
-    - redis:redis
-  env_file: .env
-  command: /usr/local/bin/gunicorn superlists.wsgi:application -w 2 -b :8000
+version: '2'
 
-nginx:
-  restart: always
-  build: ./nginx/
-  ports:
-    - "80:80"
-  volumes:
-    - /www/static
-  volumes_from:
-    - webapp
-  links:
-    - webapp:superlists
-
-postgres:
-  restart: always
-  image: postgres:latest
-  volumes_from:
-    - data
-  ports:
-    - "5432:5432"
-
-redis:
-  restart: always
-  image: redis:latest
-  ports:
-    - "6379:6379"
-
-data:
-  restart: always
-  image: postgres:latest
-  volumes:
-    - /var/lib/postgresql
-  command: "true"
+services:
+  webapp:
+    restart: always
+    build: ./superlists
+    expose:
+      - "8000"
+    env_file: .env
+    command: /usr/local/bin/gunicorn superlists.wsgi:application -w 2 -b :8000
+    environment:
+      - "constraint:node==swarm-testing-1"
+  
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - /www/static
+    volumes_from:
+      - webapp
+    links:
+      - webapp:superlists
+    environment:
+      - "constraint:node==swarm-testing-1"
+  
+  postgres:
+    restart: always
+    image: postgres:latest
+    volumes_from:
+      - data
+    ports:
+      - "5432:5432"
+    environment:
+      - "constraint:node==swarm-testing-1"
+  
+  redis:
+    restart: always
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    environment:
+      - "constraint:node==swarm-testing-1"
+  
+  data:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - /var/lib/postgresql
+    command: "true"
+    environment:
+      - "constraint:node==swarm-testing-1"
