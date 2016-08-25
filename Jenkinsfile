@@ -3,7 +3,7 @@
 node('master') {
     stage "setup environment"
     checkout scm
-    env.DOCKER_HOST = "192.121.20.151:2375"
+    env.DOCKER_HOST = "88.80.174.72:2376"
     env.DOCKER_TLS_VERIFY="1"
     env.DOCKER_CERT_PATH="/var/jenkins_home/.docker"
     env.COMPOSE_PROJECT_NAME="tdddjango"
@@ -17,7 +17,7 @@ node('master') {
     stage "deploy app"
     sh "docker-compose up -d"
     
-    stash "run migrations"
-    sh "docker run webapp /usr/local/bin/python manage.py migrate"
+    stage "run migrations"
+    sh "docker exec tdddjango_webapp_1 /usr/local/bin/python manage.py migrate"
 
 }
