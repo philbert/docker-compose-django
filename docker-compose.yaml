@@ -3,7 +3,8 @@ version: '2'
 services:
   webapp:
     restart: always
-    build: ./superlists
+    image: quay.io/philbert/django-webapp:0.1.60
+    #build: ./superlists
     expose:
       - "8000"
     env_file: .env
@@ -13,7 +14,8 @@ services:
   
   nginx:
     restart: always
-    build: ./nginx/
+    image: quay.io/philbert/django-nginx:0.1.1
+    #build: ./nginx/
     ports:
       - "80:80"
     volumes:

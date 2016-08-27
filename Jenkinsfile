@@ -11,8 +11,10 @@ node('master') {
     sh "docker ps"
     sh "docker-compose ps"
     
-    stage "docker compose build"
-    sh "docker-compose build"
+    stage "pull images"
+    docker.withRegistry("https://quay.io/v1", "quay-credentials") {
+        sh "docker-compose pull"
+    }
     
     stage "deploy app"
     sh "docker-compose up -d"
