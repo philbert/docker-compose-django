@@ -3,7 +3,7 @@ version: '2'
 services:
   webapp:
     restart: always
-    image: quay.io/philbert/django-webapp:0.1.60
+    image: quay.io/philbert/django-webapp:philbert_demo
     #build: ./superlists
     expose:
       - "8000"
