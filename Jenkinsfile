@@ -21,4 +21,5 @@ node('master') {
     
     stage "run migrations"
     sh "docker exec tdddjango_webapp_1 /usr/local/bin/python manage.py migrate"
+
 }
