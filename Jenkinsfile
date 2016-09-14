@@ -1,6 +1,7 @@
 #!/groovy
 
 node('master') {
+    // trivial change
     stage "setup environment"
     checkout scm
     env.DOCKER_HOST = "88.80.174.72:2376"
