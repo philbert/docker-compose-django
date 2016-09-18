@@ -3,7 +3,7 @@ version: '2'
 services:
   webapp:
     restart: always
-    image: quay.io/philbert/django-webapp:philbert_demo
+    image: quay.io/philbert/django-webapp:0.1.demo
     expose:
       - "8000"
     env_file: .env
