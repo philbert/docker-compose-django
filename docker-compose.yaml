@@ -23,7 +23,7 @@ services:
   
   postgres:
     restart: always
-    image: postgres:latest
+    image: postgres:9.5.4
     volumes_from:
       - data
     ports:
